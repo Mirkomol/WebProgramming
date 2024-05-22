@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeStudy - The Magical Study Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Harry+Potter&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Harry Potter', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2C3E50;
+            margin: 0;
+            color: #fff;
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+            body {
+            font-family: 'Harry Potter', cursive;
+            margin: 0;
+            padding: 0;
+            background-color: #2C3E50;
+            color: #fff;
+        }
+
+        header {
+            background-color: #34495e;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .magical-button {
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .magical-button:hover {
+            background-color: #2980b9;
+        }
+
+
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+            height: 100vh;
+            background-color: #2C3E50;
+            position: fixed;
+            top: 0;
+            left: -200px;
+            transition: left 0.3s ease;
+        }
+
+        .navbar.show {
+            left: 0;
+        }
+
+        .nav-item {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="#" class="nav-item">Home</a>
+        <a href="#" class="nav-item">Courses</a>
+        <a href="#" class="nav-item">Study Groups</a>
+        <a href="#" class="nav-item">Library</a>
+    </div>
+
+
+
+    <section>
+    <h2>LePlay </h2>
+    <div>
+        <span class="sticker">⚡️</span>
+        <span class="sticker">🔮</span>
+        <span class="sticker">🦉</span>
+        <span class="sticker">🧙‍♂️</span>
+        <span class="sticker">📚</span>
+        <span class="sticker">🦄</span>
+        <span class="sticker">🧹</span>
+
+    </div>
+</section>
+
+
+<header>
+    <a href="#" class="navbar-brand">LeStudy</a>
+    <a href="{% url 'home' %}"><button class="magical-button" onclick="castSpell()">Back To Study</button></a>
+</header>
+
+
+
+
+
+
+
+
+
+<script>
+    function castSpell() {
+        alert('See you soon again! ✨🧙‍♂️');
+    }
+</script>
+
+<div id="game-board"></div>
+<div id="score">Score: 0</div>
+
+<script>
+    const stickers = ['⚡️', '🔮', '🦉', '🧙‍♂️', '📚', '🦄', '🧹', '🏰'];
+    const cards = [...stickers, ...stickers];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let score = 0;
+
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function createCard(sticker) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `<span>${sticker}</span>`;
+        card.addEventListener('click', () => flipCard(card));
+        return card;
+    }
+
+    function createGameBoard() {
+        const gameBoard = document.getElementById('game-board');
+        shuffle(cards);
+
+        cards.forEach((sticker) => {
+            const card = createCard(sticker);
+            gameBoard.appendChild(card);
+        });
+    }
+
+
+    function flipCard(card) {
+        if (flippedCards.length < 2 && !flippedCards.includes(card) && !card.classList.contains('flipped')) {
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+    }
+
+    function checkMatch() {
+        const [card1, card2] = flippedCards;
+        const sticker1 = card1.innerHTML;
+        const sticker2 = card2.innerHTML;
+
+        if (sticker1 === sticker2) {
+            matchedPairs++;
+            score += 10;
+            updateScore();
+            if (matchedPairs === stickers.length) {
+                setTimeout(() => alert(`Congratulations! You won!\nFinal Score: ${score}`), 500);
+            }
+        } else {
+            setTimeout(() => {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }, 500);
+        }
+
+        flippedCards = [];
+    }
+
+    function updateScore() {
+        document.getElementById('score').textContent = `Score: ${score}`;
+    }
+
+    createGameBoard();
+</script>
+
+</body>
+</html>

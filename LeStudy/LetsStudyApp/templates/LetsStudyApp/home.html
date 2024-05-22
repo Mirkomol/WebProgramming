@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeStudy - Connect and Collaborate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #3498db;
+      color: #fff;
+      padding: 1em 0;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    nav a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .navbar-brand {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    .announcement {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 8px 18px;
+      margin: 8px 0;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 7px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #2980b9;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    /* Add this to your existing styles or link to an external stylesheet */
+
+#add-student-section {
+  background-color: #3498db;
+  color: #fff;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.fancy-elements {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.fancy-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #fff;
+  color: #3498db;
+  text-decoration: none;
+  font-size: 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.fancy-button:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+
+  </style>
+</head>
+<body>
+
+
+  <header>
+    <h1 class="navbar-brand">LeStudy</h1>
+    <p>Build your study network and excel together!</p>
+  </header>
+
+
+  <nav>
+    <a class="navbar-brand" href="{% url 'home' %}">LeStudy</a>
+    <a href="{% url 'library' %}">LeStudy-Lib</a>
+    <a href="{% url 'game' %}">LePlay</a>
+
+
+
+         {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" style="float: right; background-color: red; padding-left: 10px; margin-right: 10px;" class="button">Log out</a>
+             <a href="#"  style="float: right; background-color: dodgerblue; padding-right: 20px; margin-right: 20px;" class="button">Hello <b>{{user.username}}!</b> </a>
+          {% else %}
+              <a href="{% url 'login' %}" style="float: right; background-color: dodgerblue; padding-right: 20px; margin-right: 20px;" class="button">Log In</a>
+           {% endif %}
+
+  </nav>
+
+
+
+  <!-- ... Your existing HTML ... -->
+
+<section id="search-section" class="fancy-section">
+    <div class="fancy-elements">
+        <h2>Find Your Study Partner</h2>
+        <p>Search for students and connect with study buddies!</p>
+
+        <form action="" method="GET" class="search-form">
+            <div class="form-group">
+                <label for="search">Enter Major name:</label>
+                <input type="text" id="search" name="item_search" class="form-control" placeholder="Software Engineering">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</section>
+
+
+
+
+
+<section>
+  <h2>Last Networks</h2>
+
+    {% for student in students %}
+
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title mb-3">{{ student.first_name }} {{ student.last_name }}</h3>
+                <p class="card-text mb-2"><strong>Major:</strong> {{ student.major_name }}</p>
+                <p class="card-text mb-2"><strong>University:</strong> {{ student.university_name }}</p>
+                <p class="card-text mb-4"><strong>Bio:</strong> {{ student.bio }}</p>
+
+                <a href="{% url 'student_detail' student.id %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+
+{% endfor %}
+
+</section>
+
+
+    <section id="add-student-section" class="fancy-section">
+  <div class="fancy-elements">
+    <h2>Ready to Join?</h2>
+    <p>Build your study network and excel together!</p>
+    <a href="{% url 'add_student' %}" class="fancy-button">Add Student</a>
+  </div>
+</section>
+
+<!-- ... Your existing HTML ... -->
+
+
+</body>
+</html>
