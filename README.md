@@ -24,4 +24,4 @@ We invite you to explore Lestyde, provide feedback, and contribute to its develo
 
 Let us know if you'd like any further adjustments!
 
-Deployed on public open your browser and visit [http://127.0.0.1:8000/](https://lestudy.pythonanywhere.com/) to explore Lestydy!
+Deployed on public open your browser and visit (https://lestudy.pythonanywhere.com/) to explore Lestydy!
