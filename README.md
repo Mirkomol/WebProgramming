@@ -23,3 +23,5 @@ Now open your browser and visit http://127.0.0.1:8000/ to explore Lestydy!
 We invite you to explore Lestyde, provide feedback, and contribute to its development. Your insights and collaboration will help us create an even more powerful and impactful tool for students worldwide.
 
 Let us know if you'd like any further adjustments!
+
+Deployed on public open your browser and visit [http://127.0.0.1:8000/](https://lestudy.pythonanywhere.com/) to explore Lestydy!
