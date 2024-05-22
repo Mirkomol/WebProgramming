@@ -5,16 +5,16 @@ Lestydy is a Django-based web application designed to enhance the student experi
 # Getting Started:
 
 ## Activate Environment:
-  ### macOS/Linux: source env/bin/activate
+  macOS/Linux: source env/bin/activate
   
-  ### Windows: env\Scripts\activate
+  Windows: env\Scripts\activate
 
 Navigate to Project: cd LeStudy
 
 ## Run Server:
-  ### macOS/Linux: python3 manage.py runserver
+  macOS/Linux: python3 manage.py runserver
   
-  ### Windows: python manage.py runserver
+  Windows: python manage.py runserver
 
 Now open your browser and visit http://127.0.0.1:8000/ to explore Lestydy!
 
