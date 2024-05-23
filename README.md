@@ -16,6 +16,13 @@ Navigate to Project: cd LeStudy
   
   Windows: python manage.py runserver
 
+
+## If Face Error
+  pip install django
+  pip install Pillow
+  python manage.py makemigrations
+  python manage.py migrate
+
 Now open your browser and visit http://127.0.0.1:8000/ to explore Lestydy!
 
 ## Contributions Welcome!
